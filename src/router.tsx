@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/layout";
 import { Home } from "./pages/home";
-import { SeatsGrid } from "./pages/SeatsGrid";
+import { CinemaSeats } from "./pages/sala";
 
 
 const router = createBrowserRouter([
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 
             {
                 path:'/sala-poltronas',
-                element:<SeatsGrid/>
+                element:<CinemaSeats/>
             }
         ]
     }
