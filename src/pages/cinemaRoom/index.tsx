@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './sala.module.css';
+import styles from './cinemaRoom.module.css';
 import { TicketCart } from '../../components/ticketCart';
 
 // Tipagem das poltronas
@@ -18,7 +18,7 @@ export type Ticket = {
 const rows = ['A', 'B', 'C', 'D', 'E'];
 const cols = 8;
 
-export function CinemaSeats() {
+export function CinemaRoom() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [seats, setSeats] = useState<Seat[]>(
     rows.flatMap((row) =>
