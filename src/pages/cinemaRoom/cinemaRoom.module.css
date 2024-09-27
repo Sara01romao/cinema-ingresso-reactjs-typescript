@@ -19,7 +19,6 @@
 
 }
 
-
 .modal{
     max-width: 480px;
     width: 100%;
@@ -33,7 +32,6 @@
     max-width: 400px;
     margin: 0 auto;
     display: flex;
-    /* justify-content: center; */
     gap: 20px;
     border-bottom: 1px solid #F3F3F4;
     padding: 10px;
@@ -76,8 +74,7 @@
 
 .ticketTypeContainer h2{
     text-align: justify; 
-    margin: 0px;
-    margin-top: 30px;
+    margin: 30px 0px 10px 0px;
 }
 
 label{
@@ -85,7 +82,7 @@ label{
     align-items: center;
     font-size: 18px;
     font-weight: 600;
-    padding: 0px 10px 0px 0px;
+    padding: 0px 10px 0px 10px;
     cursor: pointer;
     border-radius: 4px;
     transition: 0.5 ease-in;
@@ -96,17 +93,29 @@ label:hover{
     transition: 0.5 ease-in;
 }
 
-/* .labelSelected{
-    background: #F3F3F4;
-    
-} */
+.erroType{
+    margin: 0px;
+    text-align: center;
+    color: red;
+    font-size: 18px;
+    margin-top: 10px;
+}
 
 .priceModal{
     width: 100%;
     display: flex;
     justify-content: space-between;
-
 }
+
+.priceModal span{
+    width: 100px;
+}
+input[type='radio'] {
+    accent-color: black;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+  }
 
 .btnModal{
     display: flex;

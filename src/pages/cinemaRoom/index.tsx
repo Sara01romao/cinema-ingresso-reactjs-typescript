@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styles from './cinemaRoom.module.css';
 import { TicketCart } from '../../components/ticketCart';
+import { Seat } from '../../components/seat';
 
 // Tipagem das poltronas
 type Seat = {
   id: string;
-  status: 'occupied' | 'selected' | 'reserved';
+  status: 'occupied' | 'available' | 'reserved';
 };
 
 // Tipagem do ticket
@@ -24,15 +25,15 @@ export function CinemaRoom() {
     rows.flatMap((row) =>
       Array.from({ length: cols }, (_, index) => ({
         id: `${row}${index + 1}`,
-        status: 'selected',
+        status: Math.random() < 0.3 ? 'occupied' : 'available',
       }))
     )
   );
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null); 
   const [ticketType, setTicketType] = useState<'inteira' | 'meia' | ''>(''); 
+  const [errorticketType, setErrorTicketType] = useState<boolean >(false); 
 
   const handleSeatClick = (id: string) => {
-    // Abre o modal ao clicar na poltrona, se ela não estiver ocupada
     const seat = seats.find((s) => s.id === id);
     if (seat && seat.status !== 'occupied' && seat.status !== 'reserved') {
       setSelectedSeat(id);
@@ -41,9 +42,13 @@ export function CinemaRoom() {
 
    // Adiciona o ticket ao array de tickets
   const handleAddTicket = () => {
+    if(ticketType === ''){
+      setErrorTicketType(true)
+    }
+    
     if (selectedSeat && ticketType) {
       const price = ticketType === 'inteira' ? 22.5 : 11.25;
-
+  
      
       setTickets((prevTickets) => [
         ...prevTickets,
@@ -57,7 +62,7 @@ export function CinemaRoom() {
         )
       );
 
-      
+      setErrorTicketType(false)
       handleCloseModal();
     }
   };
@@ -77,28 +82,13 @@ export function CinemaRoom() {
           {/* Grid das poltronas */}
           <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>
             {seats.map((seat) => (
-              <button
-                key={seat.id}
-                onClick={() => handleSeatClick(seat.id)}
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  backgroundColor:
-                    seat.status === 'occupied'
-                      ? 'gray'
-                      : seat.status === 'reserved'
-                      ? 'orange' // Reservada fica laranja
-                      : 'blue', // Disponível ou selecionada
-                  cursor: seat.status === 'occupied' ? 'not-allowed' : 'pointer',
-                  border: seat.status === 'reserved' ? '3px solid blue' : '1px solid black',
-                }}
-                disabled={seat.status === 'occupied'}
-              >
-                {seat.id}
-              </button>
+              
+
+              <Seat key={seat.id} seat={seat} handleSeatClick={handleSeatClick} />
             ))}
           </div>
-
+           
+          
          
 
       </div>
@@ -142,7 +132,7 @@ export function CinemaRoom() {
                       onChange={() => setTicketType('inteira')}
                     />
 
-                    <p className={styles.priceModal}> Inteira  <span> R$ 22,50</span> </p>
+                    <p className={styles.priceModal}>  Inteira  <span> R$ 22,50</span> </p>
                     
                     
                   </label>
@@ -163,8 +153,10 @@ export function CinemaRoom() {
                   </label>
                 </div>
 
+                { errorticketType && <p className={styles.erroType}>Selecione o tipo do ingresso </p>}
+                 
                 <div className={styles.btnModal}>
-                  <button onClick={handleAddTicket} disabled={!ticketType}>
+                  <button onClick={handleAddTicket} >
                     Adicionar
                   </button>
                   <button onClick={handleCloseModal}>Cancelar</button>
