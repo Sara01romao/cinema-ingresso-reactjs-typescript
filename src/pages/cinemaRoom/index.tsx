@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './cinemaRoom.module.css';
 import { TicketCart } from '../../components/ticketCart';
 import { Seat } from '../../components/seat';
+import { useParams } from 'react-router-dom';
+import { movies, Movie } from '../../data/movies';
+
 
 
 // Tipagem das poltronas
@@ -17,58 +20,107 @@ export type Ticket = {
   price: number;
 };
 
-const rows = ['A', 'B', 'C', 'D', 'E'];
-const cols = 8;
+
 
 export function CinemaRoom() {
+
+  
+
+  const { id } = useParams<{ id: string }>(); // Pega o id da URL
+  const movie = movies.find((m:Movie) => m.id === Number(id)); // Encontra o filme correspondente
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  if (!movie) {
+      return <div>Filme não encontrado</div>; // Caso o id não corresponda a nenhum filme
+  }
+
+  const rows = ['A', 'B', 'C', 'D', 'E'];
+  const cols = 8;
+
+
+  
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [seats, setSeats] = useState<Seat[]>(
-    rows.flatMap((row) =>
-      Array.from({ length: cols }, (_, index) => ({
-        id: `${row}${index + 1}`,
-        status: Math.random() < 0.3 ? 'occupied' : 'available',
-      }))
-    )
-  );
+  const [seats, setSeats] = useState<Seat[]>([]);
+
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null); 
   const [ticketType, setTicketType] = useState<'inteira' | 'meia' | ''>(''); 
   const [errorticketType, setErrorTicketType] = useState<boolean >(false); 
+ 
+
+  useEffect(() => {
+    if (movie && movie.schedule.length > 0) {
+      const firstAvailableTime = movie.schedule[0].hours[0];
+      setSelectedTime(firstAvailableTime); 
+      handleTimeSelect(firstAvailableTime); 
+    }
+  }, [movie]);
+
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time); 
+
+    setSeats(
+      rows.flatMap((row) =>
+        Array.from({ length: cols }, (_, index) => ({
+          id: `${row}${index + 1}`,
+          status: Math.random() < 0.3 ? 'occupied' : 'available',
+        }))
+      )
+    );
+  };
 
   const handleSeatClick = (id: string) => {
     const seat = seats.find((s) => s.id === id);
     if (seat && seat.status !== 'occupied' && seat.status !== 'reserved') {
       setSelectedSeat(id);
     }
+    
   };
 
-   // Adiciona o ticket ao array de tickets
-  const handleAddTicket = () => {
-    if(ticketType === ''){
-      setErrorTicketType(true)
+   // Adiciona o ticket 
+   const handleAddTicket = () => {
+    if (ticketType === '') {
+      setErrorTicketType(true);
+      return;
     }
-    
-    if (selectedSeat && ticketType) {
+  
+    if (selectedSeat && ticketType && selectedTime) {
       const price = ticketType === 'inteira' ? 22.5 : 11.25;
   
-     
+      // Extrai o dia da semana e o horário do selectedTime
+      const selectedSchedule = movie?.schedule.find((schedule) =>
+        schedule.hours.includes(selectedTime)
+      );
+      const dayOfWeek = selectedSchedule?.day || '';
+  
+      // Adiciona o novo ticket com informações adicionais
       setTickets((prevTickets) => [
         ...prevTickets,
-        { seatId: selectedSeat, type: ticketType, price },
+        {
+          seatId: selectedSeat,
+          type: ticketType,
+          price,
+          movieName: movie?.name || '',
+          movieTime: movie?.time || '',
+          dayOfWeek,
+          selectedDate: new Date().toLocaleDateString(), // Exemplo: data atual
+          selectedTime, // Horário selecionado
+        },
       ]);
 
+      console.table(tickets)
+  
       // Atualiza o status da poltrona para 'reserved'
       setSeats((prevSeats) =>
         prevSeats.map((seat) =>
           seat.id === selectedSeat ? { ...seat, status: 'reserved' } : seat
         )
       );
-
-      setErrorTicketType(false)
+  
+      setErrorTicketType(false);
       handleCloseModal();
     }
   };
   
-
+  
   const handleRemoveTicket = (seatId: string) => {
 
     setTickets((prevTickets) =>
@@ -92,24 +144,55 @@ export function CinemaRoom() {
     <div className={styles.container}>
       
       <div>
-          <div style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
+          <h1>{movie.name}</h1>
+          <img src={movie.img} alt={movie.name} />
+          <p>Tempo: {movie.time}</p>
 
-          
-          {/* Grid das poltronas */}
-          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>
-            {seats.map((seat) => (
-              
-
-              <Seat key={seat.id} seat={seat} handleSeatClick={handleSeatClick} />
+          {/* Mostra os horários */}
+          <div>
+            {movie.schedule.map((schedule, index) => (
+              <div key={index}>
+                <h3>{schedule.day}</h3>
+                {schedule.hours.map((hour) => (
+                  <button
+                    key={hour}
+                    onClick={() => handleTimeSelect(hour)}
+                    style={{
+                      backgroundColor: selectedTime === hour ? 'green' : 'white',
+                    }}
+                  >
+                    {hour}
+                  </button>
+                ))}
+              </div>
             ))}
-          </div>
-           
+        </div>
+
+          <div>
+              <div style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
+
+              
+              {/* Grid das poltronas */}
+              <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>
+                {seats.map((seat) => (
+                  
+
+                  <Seat key={seat.id} seat={seat} handleSeatClick={handleSeatClick} />
+                ))}
+              </div>
           
-         
+
+          </div>
+
 
       </div>
+      
 
       <TicketCart  tickets={tickets} onRemoveTicket={handleRemoveTicket}/>
+
+    
+
+
 
        {/* Modal de seleção do tipo de ingresso */}
        {selectedSeat && (

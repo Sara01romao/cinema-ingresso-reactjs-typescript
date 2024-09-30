@@ -1,7 +1,7 @@
 
 import { BiTrash } from 'react-icons/bi';
 import styles from './ticketCart.module.css' ;
-import { useState } from 'react';
+
 
 type Ticket = {
     seatId: string;
