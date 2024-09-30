@@ -11,14 +11,14 @@ type Ticket = {
   
   type TicketCartProps = {
     tickets: Ticket[];
+    total: number;
     onRemoveTicket: (seatId: string) => void;
+    handleBuyTicket: (tickets:Ticket[]) => void
   };
 
 
 
-  export const TicketCart = ({ tickets, onRemoveTicket }: TicketCartProps) => {
-
-  
+  export const TicketCart = ({ tickets, total, onRemoveTicket, handleBuyTicket }: TicketCartProps) => {
    
     return (
       <div className={styles.containerTicketCart}>
@@ -50,8 +50,12 @@ type Ticket = {
 
           }
         </ul>
+
+        <div>
+          <h3>Total R$ {total.toFixed(2)}</h3>
+        </div>
         
-        <button className={styles.buyTicket}>Finalizar Compra</button>
+        <button onClick={() => handleBuyTicket(tickets)} className={styles.buyTicket}>Finalizar Compra</button>
       </div>
     );
   };

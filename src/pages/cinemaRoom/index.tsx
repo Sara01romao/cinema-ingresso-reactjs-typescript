@@ -7,6 +7,7 @@ import { movies, Movie } from '../../data/movies';
 
 
 
+
 // Tipagem das poltronas
 type Seat = {
   id: string;
@@ -44,6 +45,23 @@ export function CinemaRoom() {
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null); 
   const [ticketType, setTicketType] = useState<'inteira' | 'meia' | ''>(''); 
   const [errorticketType, setErrorTicketType] = useState<boolean >(false); 
+  const [totalToPay, setTotalToPay] = useState<number>(0)
+
+
+  useEffect(()=>{
+    const calculateTotalPrice = (tickets: Ticket[]) => {
+      return tickets.reduce((total, ticket) => {
+        return total + ticket.price;
+      }, 0);
+    };
+    const total = calculateTotalPrice(tickets);
+    setTotalToPay(total)
+    
+
+  },[tickets])
+
+  
+  
  
 
   useEffect(() => {
@@ -56,6 +74,7 @@ export function CinemaRoom() {
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time); 
+    setTickets([]);
 
     setSeats(
       rows.flatMap((row) =>
@@ -81,6 +100,8 @@ export function CinemaRoom() {
       setErrorTicketType(true);
       return;
     }
+
+    console.table(tickets)
   
     if (selectedSeat && ticketType && selectedTime) {
       const price = ticketType === 'inteira' ? 22.5 : 11.25;
@@ -103,10 +124,12 @@ export function CinemaRoom() {
           dayOfWeek,
           selectedDate: new Date().toLocaleDateString(), // Exemplo: data atual
           selectedTime, // Horário selecionado
+         
         },
       ]);
-
-      console.table(tickets)
+      
+      
+      
   
       // Atualiza o status da poltrona para 'reserved'
       setSeats((prevSeats) =>
@@ -119,8 +142,7 @@ export function CinemaRoom() {
       handleCloseModal();
     }
   };
-  
-  
+ 
   const handleRemoveTicket = (seatId: string) => {
 
     setTickets((prevTickets) =>
@@ -135,10 +157,17 @@ export function CinemaRoom() {
     );
   };
 
+
   const handleCloseModal = () => {
     setSelectedSeat(null);
     setTicketType(''); 
   };
+
+
+  const handleBuyTicket = (tickets:Ticket[]) =>{
+    console.table(tickets)
+    console.log("finalizar")
+  }
 
   return (
     <div className={styles.container}>
@@ -188,7 +217,12 @@ export function CinemaRoom() {
       </div>
       
 
-      <TicketCart  tickets={tickets} onRemoveTicket={handleRemoveTicket}/>
+      <TicketCart  
+        tickets={tickets} 
+        total={totalToPay} 
+        onRemoveTicket={handleRemoveTicket}
+        handleBuyTicket={handleBuyTicket}
+        />
 
     
 
