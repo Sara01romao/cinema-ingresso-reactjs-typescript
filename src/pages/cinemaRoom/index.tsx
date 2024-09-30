@@ -3,6 +3,7 @@ import styles from './cinemaRoom.module.css';
 import { TicketCart } from '../../components/ticketCart';
 import { Seat } from '../../components/seat';
 
+
 // Tipagem das poltronas
 type Seat = {
   id: string;
@@ -66,6 +67,21 @@ export function CinemaRoom() {
       handleCloseModal();
     }
   };
+  
+
+  const handleRemoveTicket = (seatId: string) => {
+
+    setTickets((prevTickets) =>
+      prevTickets.filter((ticket) => ticket.seatId !== seatId)
+    );
+
+   
+    setSeats((prevSeats) =>
+      prevSeats.map((seat) =>
+        seat.id === seatId ? { ...seat, status: 'available' } : seat
+      )
+    );
+  };
 
   const handleCloseModal = () => {
     setSelectedSeat(null);
@@ -93,7 +109,7 @@ export function CinemaRoom() {
 
       </div>
 
-      <TicketCart  tickets={tickets}/>
+      <TicketCart  tickets={tickets} onRemoveTicket={handleRemoveTicket}/>
 
        {/* Modal de seleção do tipo de ingresso */}
        {selectedSeat && (
@@ -164,6 +180,10 @@ export function CinemaRoom() {
               </div>
             </div>
           )}
+
+
+
+   
     </div>
   );
 }

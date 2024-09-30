@@ -1,9 +1,10 @@
 
 
 .container{
-    border: 1px solid red;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 80px;
+    
 }
 
 .modalContainer{
