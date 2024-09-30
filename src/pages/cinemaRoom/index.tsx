@@ -24,21 +24,17 @@ export type Ticket = {
 
 
 export function CinemaRoom() {
-
-  
-
-  const { id } = useParams<{ id: string }>(); // Pega o id da URL
-  const movie = movies.find((m:Movie) => m.id === Number(id)); // Encontra o filme correspondente
+  const { id } = useParams<{ id: string }>(); 
+  const movie = movies.find((m:Movie) => m.id === Number(id)); 
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   if (!movie) {
-      return <div>Filme não encontrado</div>; // Caso o id não corresponda a nenhum filme
+      return <div>Filme não encontrado</div>; 
   }
 
   const rows = ['A', 'B', 'C', 'D', 'E'];
   const cols = 8;
 
-
-  
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [seats, setSeats] = useState<Seat[]>([]);
 
@@ -60,73 +56,76 @@ export function CinemaRoom() {
 
   },[tickets])
 
-  
-  
- 
 
   useEffect(() => {
     if (movie && movie.schedule.length > 0) {
       const firstAvailableTime = movie.schedule[0].hours[0];
       setSelectedTime(firstAvailableTime); 
       handleTimeSelect(firstAvailableTime); 
+
+      
     }
+
+
   }, [movie]);
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time); 
     setTickets([]);
-
-    setSeats(
-      rows.flatMap((row) =>
-        Array.from({ length: cols }, (_, index) => ({
-          id: `${row}${index + 1}`,
-          status: Math.random() < 0.3 ? 'occupied' : 'available',
-        }))
-      )
-    );
+  
+      setSeats(
+        rows.flatMap((row) =>
+          Array.from({ length: cols }, (_, index) => ({
+            id: `${row}${index + 1}`,
+            status: Math.random() < 0.3 ? 'occupied' : 'available',
+          }))
+        )
+      );
+    
+    
+      const selectedSchedule = movie?.schedule.find((schedule) =>
+        schedule.hours.includes(time) 
+      );
+      
+      const dayOfWeek = selectedSchedule?.day || '';
+      setSelectedDay(dayOfWeek);
   };
+  
 
   const handleSeatClick = (id: string) => {
-    const seat = seats.find((s) => s.id === id);
-    if (seat && seat.status !== 'occupied' && seat.status !== 'reserved') {
-      setSelectedSeat(id);
-    }
+      const seat = seats.find((s) => s.id === id);
+      if (seat && seat.status !== 'occupied' && seat.status !== 'reserved') {
+        setSelectedSeat(id);
+      }
     
   };
 
    // Adiciona o ticket 
    const handleAddTicket = () => {
-    if (ticketType === '') {
-      setErrorTicketType(true);
-      return;
-    }
+      if (ticketType === '') {
+        setErrorTicketType(true);
+        return;
+      }
 
-    console.table(tickets)
-  
+      console.table(tickets)
+    
     if (selectedSeat && ticketType && selectedTime) {
-      const price = ticketType === 'inteira' ? 22.5 : 11.25;
-  
-      // Extrai o dia da semana e o horário do selectedTime
-      const selectedSchedule = movie?.schedule.find((schedule) =>
-        schedule.hours.includes(selectedTime)
-      );
-      const dayOfWeek = selectedSchedule?.day || '';
-  
-      // Adiciona o novo ticket com informações adicionais
-      setTickets((prevTickets) => [
-        ...prevTickets,
-        {
-          seatId: selectedSeat,
-          type: ticketType,
-          price,
-          movieName: movie?.name || '',
-          movieTime: movie?.time || '',
-          dayOfWeek,
-          selectedDate: new Date().toLocaleDateString(), // Exemplo: data atual
-          selectedTime, // Horário selecionado
-         
-        },
-      ]);
+        const price = ticketType === 'inteira' ? 22.5 : 11.25;
+    
+        setTickets((prevTickets) => [
+          ...prevTickets,
+          {
+            seatId: selectedSeat,
+            type: ticketType,
+            price,
+            movieName: movie?.name || '',
+            movieTime: movie?.time || '',
+            dayOfWeek:selectedDay,
+            selectedDate: new Date().toLocaleDateString(), 
+            selectedTime, 
+          
+          },
+        ]);
       
       
       
@@ -217,17 +216,17 @@ export function CinemaRoom() {
       </div>
       
 
-      <TicketCart  
+      <TicketCart
+        movie={movie.name}
+        movieTime={selectedTime}
+        dayOfWeek={selectedDay}
         tickets={tickets} 
         total={totalToPay} 
         onRemoveTicket={handleRemoveTicket}
         handleBuyTicket={handleBuyTicket}
         />
 
-    
-
-
-
+  
        {/* Modal de seleção do tipo de ingresso */}
        {selectedSeat && (
             <div className={styles.modalContainer}>
