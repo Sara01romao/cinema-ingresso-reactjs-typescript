@@ -1,0 +1,26 @@
+
+.styles.homeContainer{
+    border: 1px solid red;
+}
+
+.moviesLinksHome{
+    display: flex;
+
+}
+
+.movieHome{
+    border: 1px solid red;
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.movieScheduleHome ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+

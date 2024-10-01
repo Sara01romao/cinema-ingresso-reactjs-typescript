@@ -172,9 +172,16 @@ export function CinemaRoom() {
     <div className={styles.container}>
       
       <div>
-          <h1>{movie.name}</h1>
-          <img src={movie.img} alt={movie.name} />
-          <p>Tempo: {movie.time}</p>
+
+         <div>
+          <img src={`/assets/${movie.img}`} width={100} height={150} alt={movie.name} />
+          <div>
+            <h1>{movie.name}</h1>
+            <p>Tempo: {movie.time}</p>
+          </div>
+          
+         </div>
+          
 
           {/* Mostra os horários */}
           <div>
