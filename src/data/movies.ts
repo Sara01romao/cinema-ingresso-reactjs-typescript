@@ -13,15 +13,16 @@ export type Movie = {
   export const movies: Movie[] = [
     {
       id: 1,
-      name: "A Caminhada",
-      img: "/movie1.png",
-      time: "120 min",
-      audio: "Legendado",
+      name: "Goiabada Monstrinho",
+      img: "/movie4.png",
+      time: "110 min",
+      audio: "Dublado",
       schedule: [
-        { day: "Segunda-Feira", hours: ["18:00", "19:40", "21:00"] },
-        { day: "Terça-Feira", hours: ["19:00", "20:30"] }
+        { day: "Sabádo", hours: ["13:00", "17:00"] },
+        { day: "Domingo", hours: ["15:00", "19:00"] }
       ],
     },
+    
     {
       id: 2,
       name: "Homem-Aranha 3",
@@ -46,14 +47,15 @@ export type Movie = {
     },
     {
       id: 4,
-      name: "Goiabada Monstrinho",
-      img: "/movie4.png",
-      time: "110 min",
-      audio: "Dublado",
+      name: "A Caminhada",
+      img: "/movie1.png",
+      time: "120 min",
+      audio: "Legendado",
       schedule: [
-        { day: "Sabádo", hours: ["13:00", "17:00"] },
-        { day: "Domingo", hours: ["15:00", "19:00"] }
+        { day: "Segunda-Feira", hours: ["18:00", "19:40", "21:00"] },
+        { day: "Terça-Feira", hours: ["19:00", "20:30"] }
       ],
-    },
+    }
+    
   ];
   
