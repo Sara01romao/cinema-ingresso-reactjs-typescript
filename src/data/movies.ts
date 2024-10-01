@@ -3,6 +3,7 @@ export type Movie = {
     name: string;
     img: string;
     time: string;
+    audio:string
     schedule: {
       day: string;
       hours: string[];
@@ -12,42 +13,46 @@ export type Movie = {
   export const movies: Movie[] = [
     {
       id: 1,
-      name: "The Werewolf and the Mysterious Ninja",
-      img: "/path-to-image1.jpg",
+      name: "A Caminhada",
+      img: "/movie1.png",
       time: "120 min",
+      audio: "Legendado",
       schedule: [
-        { day: "Monday", hours: ["14:00", "18:00"] },
-        { day: "Wednesday", hours: ["16:00", "20:00"] }
+        { day: "Segunda-Feira", hours: ["18:00", "19:40", "21:00"] },
+        { day: "Terça-Feira", hours: ["19:00", "20:30"] }
       ],
     },
     {
       id: 2,
-      name: "Journey to the Moon",
-      img: "/path-to-image2.jpg",
-      time: "90 min",
+      name: "Homem-Aranha 3",
+      img: "/movie2.png",
+      time: "220 min",
+      audio: "Legendado",
       schedule: [
-        { day: "Tuesday", hours: ["13:00", "17:00"] },
-        { day: "Thursday", hours: ["15:00", "19:00"] }
+        { day: "Quarta-Feira", hours: ["19:00", "21:00"] },
+        { day: "Quinta-Feira", hours: ["18:00", "19:40", "21:00"] }
       ],
     },
     {
       id: 3,
-      name: "The Enchanted Forest",
-      img: "/path-to-image3.jpg",
+      name: "Na Praia",
+      img: "/movie3.png",
       time: "105 min",
+      audio: "Dublado",
       schedule: [
-        { day: "Friday", hours: ["12:00", "16:00"] },
-        { day: "Sunday", hours: ["14:00", "18:00"] }
+        { day: "Sexta-Feira", hours: ["12:00", "16:00"] },
+        { day: "Sabádo", hours: ["14:00", "18:00"] }
       ],
     },
     {
       id: 4,
-      name: "Mystery of the Deep",
-      img: "/path-to-image4.jpg",
+      name: "Goiabada Monstrinho",
+      img: "/movie4.png",
       time: "110 min",
+      audio: "Dublado",
       schedule: [
-        { day: "Saturday", hours: ["13:00", "17:00"] },
-        { day: "Sunday", hours: ["15:00", "19:00"] }
+        { day: "Sabádo", hours: ["13:00", "17:00"] },
+        { day: "Domingo", hours: ["15:00", "19:00"] }
       ],
     },
   ];
