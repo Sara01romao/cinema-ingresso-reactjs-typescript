@@ -1,10 +1,30 @@
 
 
-.container{
+.containerCineRoom{
     display: flex;
     justify-content: center;
     gap: 80px;
-    
+    padding-top: 50px;
+   
+}
+
+.aboutMovieRoom{
+    color: #fff;
+}
+
+.titleMovieRoom{
+    display: flex;
+    gap: 20px;
+}
+
+.titleRoom{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.seatsRoomContainer{
+    margin-top: 50px;
 }
 
 .modalContainer{
