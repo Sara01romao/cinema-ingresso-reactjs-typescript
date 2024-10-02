@@ -26,7 +26,9 @@ export function Home(){
                             <div className={styles.MovieTitleContainer}>
                                 <h2>{movie.name}</h2>
                                 <p>Duração: {movie.time}</p>
-                                <p>{movie.audio}</p>
+                                <p>Gênero: {movie.genre}</p>
+                                <p className={styles.audioTypeHome}>{movie.audio}</p>
+                                
                             </div>
                             
                             <div className={styles.movieScheduleHome}>

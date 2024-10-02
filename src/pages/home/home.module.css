@@ -72,6 +72,14 @@
     
 }
 
+.audioTypeHome{
+    background: #f5b324;
+    max-width: max-content;
+    padding: 3px;
+    border-radius: 4px;
+    margin-top: 5px;
+    background: #f5b324;
+}
 
 .movieScheduleHome ul{
     list-style: none;
@@ -81,12 +89,17 @@
     position: relative;
 }
 
+.movieScheduleHome ul li{
+    border: 2px solid #0f0418;
+    padding: 3px;
+    border-radius: 4px;
+}
+
 
 .scheduleTitle{
     justify-content: start;
     margin-bottom: 5px;
     padding-top: 10px;
-    border-top: 2px solid #e3e3e3;
 }
 .dayHoursContainer{
     display: flex;
