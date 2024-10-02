@@ -59,36 +59,54 @@ export function CinemaRoom() {
 
   useEffect(() => {
     if (movie && movie.schedule.length > 0) {
+      const firstAvailableDay = movie.schedule[0].day;
       const firstAvailableTime = movie.schedule[0].hours[0];
+      setSelectedDay(firstAvailableDay); 
       setSelectedTime(firstAvailableTime); 
-      handleTimeSelect(firstAvailableTime); 
-
-      
+      handleTimeSelect(firstAvailableDay, firstAvailableTime);
     }
 
 
   }, [movie]);
 
-  const handleTimeSelect = (time: string) => {
+
+  // const handleTimeSelect = (time: string) => {
+  //   setSelectedTime(time); 
+  //   setTickets([]);
+  
+  //     setSeats(
+  //       rows.flatMap((row) =>
+  //         Array.from({ length: cols }, (_, index) => ({
+  //           id: `${row}${index + 1}`,
+  //           status: Math.random() < 0.3 ? 'occupied' : 'available',
+  //         }))
+  //       )
+  //     );
+    
+    
+  //     const selectedSchedule = movie?.schedule.find((schedule) =>
+  //       schedule.hours.includes(time) 
+  //     );
+      
+  //     const dayOfWeek = selectedSchedule?.day || '';
+  //     setSelectedDay(dayOfWeek);
+  // };
+
+  const handleTimeSelect = (day: string, time: string) => {
+    setSelectedDay(day);
     setSelectedTime(time); 
     setTickets([]);
-  
-      setSeats(
-        rows.flatMap((row) =>
-          Array.from({ length: cols }, (_, index) => ({
-            id: `${row}${index + 1}`,
-            status: Math.random() < 0.3 ? 'occupied' : 'available',
-          }))
-        )
-      );
+
+    setSeats(
+      rows.flatMap((row) =>
+        Array.from({ length: cols }, (_, index) => ({
+          id: `${row}${index + 1}`,
+          status: Math.random() < 0.3 ? 'occupied' : 'available',
+        }))
+      )
+    );
+
     
-    
-      const selectedSchedule = movie?.schedule.find((schedule) =>
-        schedule.hours.includes(time) 
-      );
-      
-      const dayOfWeek = selectedSchedule?.day || '';
-      setSelectedDay(dayOfWeek);
   };
   
 
@@ -118,8 +136,9 @@ export function CinemaRoom() {
             seatId: selectedSeat,
             type: ticketType,
             price,
-            movieName: movie?.name || '',
-            movieTime: movie?.time || '',
+            movieName: movie?.name ,
+            movieTime: movie?.time ,
+            movieRoom: movie?.room ,
             dayOfWeek:selectedDay,
             selectedDate: new Date().toLocaleDateString(), 
             selectedTime, 
@@ -169,49 +188,46 @@ export function CinemaRoom() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerCineRoom}>
       
-      <div>
+      <div className={styles.aboutMovieRoom}>
 
-         <div>
+         <div className={styles.titleMovieRoom}>
           <img src={`/assets/${movie.img}`} width={100} height={150} alt={movie.name} />
-          <div>
+          <div className={styles.titleRoom}>
             <h1>{movie.name}</h1>
             <p>Tempo: {movie.time}</p>
+            <p>{movie.room}</p>
           </div>
           
          </div>
           
-
           {/* Mostra os horários */}
           <div>
             {movie.schedule.map((schedule, index) => (
               <div key={index}>
                 <h3>{schedule.day}</h3>
                 {schedule.hours.map((hour) => (
-                  <button
-                    key={hour}
-                    onClick={() => handleTimeSelect(hour)}
-                    style={{
-                      backgroundColor: selectedTime === hour ? 'green' : 'white',
-                    }}
-                  >
-                    {hour}
-                  </button>
+                <button
+                  key={hour}
+                  onClick={() => handleTimeSelect(schedule.day, hour)}
+                  style={{
+                    backgroundColor: selectedDay === schedule.day && selectedTime === hour ? 'green' : 'white',
+                  }}
+                >
+                  {hour}
+                </button>
                 ))}
               </div>
             ))}
         </div>
 
-          <div>
+          <div className={styles.seatsRoomContainer}>
               <div style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
 
-              
               {/* Grid das poltronas */}
               <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>
                 {seats.map((seat) => (
-                  
-
                   <Seat key={seat.id} seat={seat} handleSeatClick={handleSeatClick} />
                 ))}
               </div>
