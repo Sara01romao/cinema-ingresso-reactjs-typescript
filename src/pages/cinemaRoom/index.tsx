@@ -5,9 +5,6 @@ import { Seat } from '../../components/seat';
 import { useParams } from 'react-router-dom';
 import { movies, Movie } from '../../data/movies';
 
-
-
-
 // Tipagem das poltronas
 type Seat = {
   id: string;
@@ -68,29 +65,6 @@ export function CinemaRoom() {
 
 
   }, [movie]);
-
-
-  // const handleTimeSelect = (time: string) => {
-  //   setSelectedTime(time); 
-  //   setTickets([]);
-  
-  //     setSeats(
-  //       rows.flatMap((row) =>
-  //         Array.from({ length: cols }, (_, index) => ({
-  //           id: `${row}${index + 1}`,
-  //           status: Math.random() < 0.3 ? 'occupied' : 'available',
-  //         }))
-  //       )
-  //     );
-    
-    
-  //     const selectedSchedule = movie?.schedule.find((schedule) =>
-  //       schedule.hours.includes(time) 
-  //     );
-      
-  //     const dayOfWeek = selectedSchedule?.day || '';
-  //     setSelectedDay(dayOfWeek);
-  // };
 
   const handleTimeSelect = (day: string, time: string) => {
     setSelectedDay(day);
@@ -203,27 +177,38 @@ export function CinemaRoom() {
          </div>
           
           {/* Mostra os horários */}
-          <div>
-            {movie.schedule.map((schedule, index) => (
-              <div key={index}>
-                <h3>{schedule.day}</h3>
-                {schedule.hours.map((hour) => (
-                <button
-                  key={hour}
-                  onClick={() => handleTimeSelect(schedule.day, hour)}
-                  style={{
-                    backgroundColor: selectedDay === schedule.day && selectedTime === hour ? 'green' : 'white',
-                  }}
-                >
-                  {hour}
-                </button>
-                ))}
-              </div>
-            ))}
+          <div className={styles.scheduleContainer}>
+            <h3 className={styles.titleSchedule}>Selecionar Dia e Horário</h3>
+            <div className={styles.scheduleItems}>
+          
+        
+              {movie.schedule.map((schedule, index) => (
+                <div  key={index}>
+                  <h4>{schedule.day}</h4>
+                    <div className={styles.scheduleButtonsContainer} >
+                      {schedule.hours.map((hour) => (
+                      
+                          <button
+                            key={hour}
+                            onClick={() => handleTimeSelect(schedule.day, hour)}
+                            style={{
+                              backgroundColor: selectedDay === schedule.day && selectedTime === hour ? '#FFBE3C' : 'white',
+                            }}
+                          >
+                            {hour}
+                        </button>
+                    
+                      ))}
+                    </div>
+                </div>
+              ))}
+
+                  
+            </div>
         </div>
 
           <div className={styles.seatsRoomContainer}>
-              <div style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
+              <div className={styles.screenRoomContainer} style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
 
               {/* Grid das poltronas */}
               <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>

@@ -25,6 +25,14 @@
 
 .seatsRoomContainer{
     margin-top: 50px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.screenRoomContainer{
+    width: 100%;
+    text-align: center;
 }
 
 .modalContainer{
@@ -147,7 +155,7 @@ input[type='radio'] {
 }
 
 .btnModal button{
-    height: 45px;
+    height: 35px;
     font-size: 18px;
     max-width: 300px;
     width: 100%;
@@ -165,3 +173,49 @@ input[type='radio'] {
    
 }
 
+.scheduleContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-top: 1px solid rgb(255, 255, 255);
+    margin-top: 10px;
+    padding-top: 10px;
+    
+}
+
+.titleSchedule{
+    text-align: center;
+}
+
+.scheduleContainer h4{
+    margin-bottom: 10px;
+    text-align: start;
+}
+
+.scheduleButtonsContainer{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 250px;
+    gap: 10px;
+   
+}
+
+.scheduleItems{
+    display: flex;
+
+}
+
+.scheduleContainer button{
+    display: inline-block;
+    height: 40px;
+    max-width: 70px;
+    width: 100%;
+    
+    cursor: pointer;
+    border: 2px solid #FFBE3C;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+}
