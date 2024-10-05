@@ -5,11 +5,11 @@
     justify-content: center;
     gap: 80px;
     padding-top: 50px;
-   
 }
 
 .aboutMovieRoom{
     color: #fff;
+    padding: 20px;
 }
 
 .titleMovieRoom{
@@ -28,6 +28,7 @@
     display: flex;
     flex-direction:column;
     align-items: center;
+    margin-bottom: 70px;
 }
 
 .screenRoomContainer{
@@ -204,6 +205,8 @@ input[type='radio'] {
 
 .scheduleItems{
     display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 
 }
 
@@ -218,4 +221,36 @@ input[type='radio'] {
     font-weight: bold;
     font-size: 16px;
     border-radius: 4px;
+}
+
+.seatList{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35px, 50px));
+    gap: 10px;
+    justify-content: center;
+}
+
+@media screen and (max-width:768px) {
+    .containerCineRoom{
+       flex-direction: column;
+    }
+
+    .titleRoom h1{
+        font-size: 24px;
+    }
+
+    .containerTicketCart{
+        max-width: 90%;
+    
+    }
+
+    
+    
+}
+
+@media screen and (max-width: 425px){
+    .seatList{
+        grid-template-columns: repeat(auto-fill, minmax(30px, 30px));
+    }
 }

@@ -6,6 +6,7 @@
     background: #00C614;
     cursor: pointer;
     color: #000;
+    border-radius: 4px;
 }
 
 .seat:hover{
@@ -25,7 +26,12 @@
 
 }
 
-
+@media screen and (max-width:500px){
+    .seat{
+        width: 35px;
+        height: 35px;
+    }
+}
 
 
 

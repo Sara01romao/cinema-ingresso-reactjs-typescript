@@ -7,26 +7,45 @@
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
-    ;
-    
-
+    height: max-content;
 }
 
-/* h3{
+
+
+.containerTicketCart h3{
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-} */
+   
+}
+
+.ticketsInfoTicketCart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.ticketsInfoTicketCart p:first-child{
+    font-size: 18px;
+}
+
+.ticketsInfoTicketCart p{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
 .containerTicketCart ul{
     list-style: none;
     padding: 0px;
     min-height: 150px;
+    margin-top: 30px;
    
 }
-
 
 .containerTicketCart ul li{
    display: flex;
@@ -95,4 +114,54 @@
     border: 1px solid #f0f0f0;
     color: #858585;
 
+}
+
+.openTicketCart{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 0px 0px 0px auto;
+    transition: 0.3s ease-in;
+}
+
+.openTicketCart:hover{
+    background: #414141;
+    transition: 0.3s ease-in;
+}
+  
+
+@media screen and (max-width:768px) {
+    .containerTicketCart{
+        max-width: 90%;
+        margin: 0 auto;
+        position: fixed;
+        bottom: 0;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
+
+    .openTicketCart{
+        display: flex;
+    }
+
+    .openTicketCart.arrowCart svg{
+        transform: rotate(180deg);
+    }
+
+    .buyTicketInfo.activeMobile{
+        display: none;
+    }
+
+    .containerTicketCart h3{
+        justify-content: flex-start;
+        margin-bottom: 0px;
+    }
+
+    
+    
 }

@@ -4,6 +4,7 @@ import { TicketCart } from '../../components/ticketCart';
 import { Seat } from '../../components/seat';
 import { useParams } from 'react-router-dom';
 import { movies, Movie } from '../../data/movies';
+import { FaCartArrowDown } from 'react-icons/fa';
 
 // Tipagem das poltronas
 type Seat = {
@@ -38,7 +39,13 @@ export function CinemaRoom() {
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null); 
   const [ticketType, setTicketType] = useState<'inteira' | 'meia' | ''>(''); 
   const [errorticketType, setErrorTicketType] = useState<boolean >(false); 
-  const [totalToPay, setTotalToPay] = useState<number>(0)
+  const [totalToPay, setTotalToPay] = useState<number>(0);
+  const [mobileCart, setMobileCart] = useState<boolean>(true);
+
+  const openMobileCar = () =>{
+    console.log("Carrinho", mobileCart)
+     setMobileCart(!mobileCart)
+  }
 
 
   useEffect(()=>{
@@ -114,7 +121,7 @@ export function CinemaRoom() {
             movieTime: movie?.time ,
             movieRoom: movie?.room ,
             dayOfWeek:selectedDay,
-            selectedDate: new Date().toLocaleDateString(), 
+            // selectedDate: new Date().toLocaleDateString(), 
             selectedTime, 
           
           },
@@ -161,6 +168,14 @@ export function CinemaRoom() {
     console.log("finalizar")
   }
 
+  const formatDay = (fullDayString:string) => {
+    const [dayOfWeek, date] = fullDayString.split(", ");
+    
+    const shortDate = date.slice(0, 5); 
+  
+    return `${dayOfWeek}- ${shortDate}`;
+  };
+
   return (
     <div className={styles.containerCineRoom}>
       
@@ -180,11 +195,12 @@ export function CinemaRoom() {
           <div className={styles.scheduleContainer}>
             <h3 className={styles.titleSchedule}>Selecionar Dia e Horário</h3>
             <div className={styles.scheduleItems}>
-          
-        
+
               {movie.schedule.map((schedule, index) => (
                 <div  key={index}>
-                  <h4>{schedule.day}</h4>
+                    <h4 key={schedule.day}>
+                      {formatDay(schedule.day)}
+                    </h4>
                     <div className={styles.scheduleButtonsContainer} >
                       {schedule.hours.map((hour) => (
                       
@@ -205,24 +221,22 @@ export function CinemaRoom() {
 
                   
             </div>
-        </div>
+          </div>
 
           <div className={styles.seatsRoomContainer}>
               <div className={styles.screenRoomContainer} style={{ background: 'grey', padding: '4px', marginBottom: '40px' }}>Tela</div>
 
               {/* Grid das poltronas */}
-              <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 50px)`, gap: '10px' }}>
+              <div className={styles.seatList} >
                 {seats.map((seat) => (
                   <Seat key={seat.id} seat={seat} handleSeatClick={handleSeatClick} />
                 ))}
               </div>
           
-
           </div>
 
 
       </div>
-      
 
       <TicketCart
         movie={movie.name}
@@ -232,6 +246,8 @@ export function CinemaRoom() {
         total={totalToPay} 
         onRemoveTicket={handleRemoveTicket}
         handleBuyTicket={handleBuyTicket}
+        handleOpenCart={openMobileCar}
+        mobileCart={mobileCart}
         />
 
   
