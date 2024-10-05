@@ -22,8 +22,8 @@ export type Movie = {
       audio: "Dublado",
       room: "Sala 1",
       schedule: [
-        { day: "Sabádo", hours: ["13:00", "17:00"] },
-        { day: "Domingo", hours: ["15:00", "19:00"] }
+        { day: "Sabádo, 05/10/2024", hours: ["13:00", "17:00"] },
+        { day: "Domingo, 06/10/2024", hours: ["15:00", "19:00"] }
       ],
     },
     
@@ -36,8 +36,8 @@ export type Movie = {
       audio: "Legendado",
       room: "Sala 2",
       schedule: [
-        { day: "Quarta-Feira", hours: ["19:00", "21:00"] },
-        { day: "Quinta-Feira", hours: ["18:00", "19:40", "21:00"] }
+        { day: "Quarta, 09/10/2024", hours: ["19:00", "21:00"] },
+        { day: "Quinta, 10/10/2024", hours: ["18:00", "19:40", "21:00"] }
       ],
     },
     {
@@ -49,8 +49,8 @@ export type Movie = {
       audio: "Dublado",
       room: "Sala 4",
       schedule: [
-        { day: "Sexta-Feira", hours: ["12:00", "16:00"] },
-        { day: "Sabádo", hours: ["14:00", "18:00"] }
+        { day: "Sexta, 11/10/2024", hours: ["12:00", "16:00"] },
+        { day: "Sabádo, 12/10/2024", hours: ["14:00", "18:00"] }
       ],
     },
     {
@@ -62,8 +62,8 @@ export type Movie = {
       audio: "Legendado",
       room: "Sala 3",
       schedule: [
-        { day: "Segunda-Feira", hours: ["18:00", "19:40", "21:00"] },
-        { day: "Terça-Feira", hours: ["19:00", "20:30"] }
+        { day: "Segunda , 13/10/2024", hours: ["18:00", "19:40", "21:00"] },
+        { day: "Terça, 14/10/2024", hours: ["19:00", "20:30"] }
       ],
     }
     
