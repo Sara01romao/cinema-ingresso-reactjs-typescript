@@ -44,8 +44,25 @@
     padding: 0px;
     min-height: 150px;
     margin-top: 30px;
-   
+    height: 200px;
+    overflow-y: auto;
+    padding-left: 10px;
 }
+
+
+.containerTicketCart ul::-webkit-scrollbar {
+    width: 10px;              
+  }
+  .containerTicketCart ul::-webkit-scrollbar-track {
+    background: rgb(235, 235, 235);        
+  }
+  
+  .containerTicketCart ul::-webkit-scrollbar-thumb {
+    background-color: rgb(177, 177, 177);   
+    border-radius: 20px;       
+    border: 2.5px solid rgb(235, 235, 235);  
+  }
+
 
 .containerTicketCart ul li{
    display: flex;
@@ -126,10 +143,11 @@
     border: none;
     margin: 0px 0px 0px auto;
     transition: 0.3s ease-in;
+    cursor: pointer;
 }
 
 .openTicketCart:hover{
-    background: #414141;
+    background: #FFBE3C;
     transition: 0.3s ease-in;
 }
   
