@@ -28,7 +28,7 @@ type Ticket = {
   export const TicketCart = ({ movie, movieTime, dayOfWeek, tickets, total, onRemoveTicket, handleBuyTicket,  handleOpenCart, mobileCart }: TicketCartProps) => {
    
     return (
-      <div className={styles.containerTicketCart}>
+      <div className={`${styles.containerTicketCart} ${!mobileCart ? styles.activeMobile : ''} `}>
         <h3 className={styles.active}> 
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="28" height="28" rx="4" fill="#FFCE00"/>
@@ -71,7 +71,7 @@ type Ticket = {
           </ul>
 
           <div>
-            <h3>Total R$ {total.toFixed(2)}</h3>
+            <h4 className={styles.totalCart}>Total R$ {total.toFixed(2)}</h4>
           </div>
           
           <button onClick={() => handleBuyTicket(tickets)} className={styles.buyTicket}>Finalizar Compra</button>

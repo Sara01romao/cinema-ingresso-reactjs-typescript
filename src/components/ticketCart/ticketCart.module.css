@@ -10,8 +10,6 @@
     height: max-content;
 }
 
-
-
 .containerTicketCart h3{
     text-align: center;
     display: flex;
@@ -47,21 +45,24 @@
     height: 200px;
     overflow-y: auto;
     padding-left: 10px;
+    margin-bottom: 10px;
+    
 }
 
 
 .containerTicketCart ul::-webkit-scrollbar {
     width: 10px;              
-  }
-  .containerTicketCart ul::-webkit-scrollbar-track {
+}
+
+.containerTicketCart ul::-webkit-scrollbar-track {
     background: rgb(235, 235, 235);        
-  }
+}
   
-  .containerTicketCart ul::-webkit-scrollbar-thumb {
+.containerTicketCart ul::-webkit-scrollbar-thumb {
     background-color: rgb(177, 177, 177);   
     border-radius: 20px;       
     border: 2.5px solid rgb(235, 235, 235);  
-  }
+}
 
 
 .containerTicketCart ul li{
@@ -101,7 +102,6 @@
     transition: 0.3s ease-in;
 }
 
-
 .buyTicket{
     background: #000000;
     color: #fff;
@@ -127,7 +127,7 @@
     align-items: center;
     text-align: center;
     width: 100%;
-    min-height: 150px;
+    min-height: 100%;
     border: 1px solid #f0f0f0;
     color: #858585;
 
@@ -161,14 +161,25 @@
         margin: 0 auto;
         left: 0;
         right: 0;
+        height: 70px; 
+        transition: height 0.5s ease-in-out; 
     }
 
+    .containerTicketCart.activeMobile{
+        height:450px;
+        transition:height 0.8s ease;
+    }
+   
     .openTicketCart{
         display: flex;
     }
 
     .openTicketCart.arrowCart svg{
         transform: rotate(180deg);
+    }
+
+    .containerTicketCart ul{
+        padding: 0px 25px 0px 20px;
     }
 
     .buyTicketInfo.activeMobile{
@@ -182,4 +193,10 @@
 
     
     
+}
+
+.totalCart{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
