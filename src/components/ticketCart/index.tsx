@@ -36,6 +36,9 @@ type Ticket = {
           </svg>
 
           Ingressos 
+          {tickets.length >=1 && (<span>{tickets.length}</span>)}
+          
+          
 
           <button onClick={ handleOpenCart} className={`${styles.openTicketCart} ${!mobileCart ? styles.arrowCart :''}`}><IoIosArrowDropupCircle  size={30}/></button>
         </h3>
