@@ -7,6 +7,47 @@
     padding-top: 50px;
 }
 
+.roomHeader{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.roomHeader h1{
+    color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (max-width:375px){
+    .roomHeader h1{
+        font-size: 24px;
+    }
+    
+}
+
+.linkBack{
+    color: #dfdfdf;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: 0.5s ease-in;
+}
+
+.linkBack:hover{
+    color: #fff;
+    transition: 0.5s ease-in;
+}
+
 .aboutMovieRoom{
     color: #fff;
     padding: 20px;
@@ -226,7 +267,7 @@ input[type='radio'] {
 .seatList{
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(35px, 50px));
+    grid-template-columns: repeat(8, minmax(35px, 50px));
     gap: 10px;
     justify-content: center;
 }
@@ -251,6 +292,6 @@ input[type='radio'] {
 
 @media screen and (max-width: 425px){
     .seatList{
-        grid-template-columns: repeat(auto-fill, minmax(30px, 30px));
+        grid-template-columns: repeat(8, minmax(30px, 30px));
     }
 }
