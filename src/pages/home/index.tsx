@@ -16,7 +16,7 @@ export function Home(){
            </h1>
            <div className={styles.moviesLinksHome}>
             {movies.map((movie:Movie) => (
-                    <Link className={styles.movieHome} key={movie.id} to={`/sala-poltronas/${movie.id}`}>
+                    <Link className={styles.movieHome} key={movie.id} to={`/cine-room/${movie.id}`}>
                         <div>
                             <img src={`/assets/${movie.img}`} width={220} height={250} alt={movie.name} />
                             
