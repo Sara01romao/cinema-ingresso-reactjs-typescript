@@ -15,7 +15,7 @@ const router = createBrowserRouter([
             },
 
             {
-                path:'/sala-poltronas/:id',
+                path:'/cine-room/:id',
                 element:<CinemaRoom/>
             }
         ]
