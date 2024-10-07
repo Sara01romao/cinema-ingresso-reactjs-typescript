@@ -1,4 +1,3 @@
-
 import { BiTrash } from 'react-icons/bi';
 import styles from './ticketCart.module.css' ;
 import { TbCalendarClock } from 'react-icons/tb';
@@ -23,8 +22,6 @@ type Ticket = {
     mobileCart:boolean;
   };
 
-
-
   export const TicketCart = ({ movie, movieTime, dayOfWeek, tickets, total, onRemoveTicket, handleBuyTicket,  handleOpenCart, mobileCart }: TicketCartProps) => {
    
     return (
@@ -38,8 +35,6 @@ type Ticket = {
           Ingressos 
           {tickets.length >=1 && (<span>{tickets.length}</span>)}
           
-          
-
           <button onClick={ handleOpenCart} className={`${styles.openTicketCart} ${!mobileCart ? styles.arrowCart :''}`}><IoIosArrowDropupCircle  size={30}/></button>
         </h3>
 
