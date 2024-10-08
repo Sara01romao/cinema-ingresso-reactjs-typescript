@@ -1,3 +1,49 @@
+<h2 align="center"> 💻 Sistema de Vendas de Ingresso de Cinema </h2> 
+
+<p align="center">
+  
+
+  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/853e835c-cfc1-49bc-b0fc-a5128468dbf3">
+  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/14362e58-ba72-4050-8bf5-7cb39f826777">
+  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/0acaa67b-b91d-4e77-b952-77523495a0cf">
+
+
+</p> 
+
+
+
+## 💻  Sobre o Projeto
+
+Este projeto é um sistema de venda de ingressos online, desenvolvido com React.js e TypeScript, utilizando estados para manipulação dinâmica de dados e tipagem forte para garantir a integridade do sistema. Principais funcionalidades:
+
+- Escolher data, horário e tipo de ingresso, com atualização automática das informações.
+- Gerenciar o status das poltronas (livres, ocupadas ou reservadas) utilizando estados reativos.
+- Manter um carrinho de compras dinâmico, com opções de adicionar, remover e finalizar a compra.
+- Implementar um sistema de pagamento com tempo limitado: poltronas reservadas são liberadas automaticamente se o pagamento não for concluído a tempo ou for cancelado.
+  
+  
+<a href="https://sistema-ingresso-cinema.netlify.app/" target="_blank"><strong>Acessar »</strong></a>
+
+<br>
+
+
+## :rocket: Tecnologias Usadas
+
+
+Front-end 
+```
+REACTJS
+TYPESCRIPT
+```
+
+
+
+
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
