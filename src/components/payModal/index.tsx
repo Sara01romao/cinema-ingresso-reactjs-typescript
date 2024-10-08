@@ -5,16 +5,24 @@ export type Ticket = {
   seatId: string;
   type: 'inteira' | 'meia';
   price: number;
+  movieName?: string;
+  movieTime?: string;
+  movieRoom?: string;
+  dayOfWeek?: string;
+  selectedDate?: string;
+  selectedTimeBuy?: string;
+  selectedTime?: string;
 };
 
 interface PayProps {
   tickets: Ticket[];
-  onClose: (isOpen: boolean) => void;
+  handleCancelPayment : () => void;
   time:number;
+  totalToPay:number;
   
 }
 
-export function PaymentModal({ onClose, tickets, time }: PayProps) {
+export function PaymentModal({ handleCancelPayment , tickets, time, totalToPay}: PayProps) {
   const [remainingTimePayment, setRemainingTimePayment] = useState(time * 60); // 5 minutos em segundos
   
   useEffect(() => {
@@ -46,24 +54,62 @@ export function PaymentModal({ onClose, tickets, time }: PayProps) {
         </h2>
         <p className={styles.timePaymentModal}>Tempo Restante: <strong>{formatTime(remainingTimePayment)}</strong></p>
         
-        <div>
-          {tickets.map((item) => (
+        {tickets.length > 0 && (
+          <div className={styles.infoMoviePaymentModal} >
+            
             <div>
-              
-              <ul>
-                <li><p>{item.price.toLocaleString("pt-BR",{
-                    style: "currency",
-                    currency: "BRL"
-                    })}</p>
-                </li>
-              </ul>
+              <p><strong>Filme:</strong> {tickets[0].movieName}</p>
+              <p><strong>Horário:</strong> {tickets[0].movieTime}</p>
             </div>
-            
-            
-          ))}
+
+           
+            <div>
+              <p><strong>Sala:</strong> {tickets[0].movieRoom}</p>
+              <p><strong>Data:</strong> {tickets[0].dayOfWeek}</p>
+              <p><strong>Horário Filme:</strong> {tickets[0].selectedTime}</p>
+            </div>
+          </div>
+        )}
+        <div>
+          <h4 className={styles.titleInfoTickets}>Informações Ingressos</h4>
+          <table className={styles.tableTickets}>
+            <thead>
+              <tr>
+                <th>Poltrona</th>
+                <th>Ingresso</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tickets.map((ticket) => (
+                <tr key={ticket.seatId}>
+                  <td>{ticket.seatId}</td>
+                  <td>{ticket.type === 'inteira' ? 'Inteira' : 'Meia'}</td>
+                  <td>{ticket.price.toLocaleString("pt-BR",{
+                        style: "currency",
+                        currency: "BRL"
+                    })}
+                 </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
+          <h2 className={styles.totalPaymentModal} >
+              Total a pagar: <span>{totalToPay.toLocaleString("pt-BR",{
+                  style: "currency",
+                  currency: "BRL"
+              })}</span>
+          </h2>
+
         </div>
-        <img className={styles.qrCodeImg} src="https://www.emoderationskills.com/wp-content/uploads/2010/08/QR1.jpg" alt="" />
-        <button onClick={() => onClose(false)}>Cancelar</button>
+
+        <div className={styles.qrContainer}>
+          <p>PIX</p>
+          <img className={styles.qrCodeImg} src="https://www.emoderationskills.com/wp-content/uploads/2010/08/QR1.jpg" alt="" />
+        </div>
+        
+        <button className={styles.btnCancelPayment} onClick={handleCancelPayment }>Cancelar</button>
       </div>
     </div>
   );

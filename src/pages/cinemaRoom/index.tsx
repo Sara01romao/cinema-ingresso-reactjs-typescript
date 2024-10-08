@@ -19,6 +19,7 @@ export type Ticket = {
   seatId: string;
   type: 'inteira' | 'meia';
   price: number;
+ 
 };
 
 
@@ -179,18 +180,32 @@ export function CinemaRoom() {
   const [remainingTime, setRemainingTime] = useState(0);
 
   const handleBuyTicket = (tickets:Ticket[]) =>{
-   
-    console.table(tickets)
-    console.log("finalizar")
-    setShowPaymentModal(true);
-    // setIsBuying(true); 
 
+    if(tickets.length !== 0){
+      setShowPaymentModal(true);
+    }
+   
+    console.table(tickets.length)
+    console.log("finalizar")
      setRemainingTime(5)
   }
 
+  const handleCancelPayment = () => {
+    setSeats((prevSeats) =>
+      prevSeats.map((seat) =>
+        tickets.some((ticket) => ticket.seatId === seat.id)
+          ? { ...seat, status: 'available' } 
+          : seat
+      )
+    );
+  
+    setTickets([]);
+    setShowPaymentModal(false);
+  };
+  
 
- 
-   
+
+
   return (
 
     <>
@@ -349,7 +364,7 @@ export function CinemaRoom() {
             )}
 
         {showPaymentModal &&(
-          <PaymentModal onClose={() => setShowPaymentModal(false)} tickets={tickets} time={remainingTime} />
+          <PaymentModal handleCancelPayment ={handleCancelPayment} tickets={tickets} time={remainingTime} totalToPay={totalToPay} />
         )}
         
     
