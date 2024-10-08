@@ -110,7 +110,7 @@ export function PaymentModal({ handleCancelPayment , tickets, time, totalToPay, 
           <img className={styles.qrCodeImg} src="https://www.emoderationskills.com/wp-content/uploads/2010/08/QR1.jpg" alt="" />
         </div>
         
-        <button className={styles.btnCancelPayment} onClick={handlePaymentCompletion}>Concluído</button>
+        <button className={styles.btnOkPayment} onClick={handlePaymentCompletion}>Concluído</button>
         <br></br>
         <button className={styles.btnCancelPayment} onClick={handleCancelPayment}>Cancelar</button>
       </div>

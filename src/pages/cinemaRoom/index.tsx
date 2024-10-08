@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TicketCart } from '../../components/ticketCart';
 import { Seat } from '../../components/seat';
-import { Link, useParams } from 'react-router-dom';
+import { Link,useNavigate, useParams } from 'react-router-dom';
 import { movies, Movie } from '../../data/movies';
 import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
 import styles from './cinemaRoom.module.css';
@@ -24,6 +24,7 @@ export type Ticket = {
 
 
 export function CinemaRoom() {
+  const navigate = useNavigate(); 
   const { id } = useParams<{ id: string }>(); 
   const movie = movies.find((m:Movie) => m.id === Number(id)); 
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
@@ -81,6 +82,7 @@ export function CinemaRoom() {
     setSelectedDay(day);
     setSelectedTime(time); 
     setTickets([]);
+    setRemainingTime(0)
 
     setSeats(
       rows.flatMap((row) =>
@@ -189,6 +191,7 @@ export function CinemaRoom() {
     handleExpiredSeats();
     setTickets([]);
     setShowPaymentModal(false);
+    setRemainingTime(0)
   };
   
 
@@ -226,6 +229,7 @@ export function CinemaRoom() {
   const handlePaymentCompletion = () => {
     setPaymentCompleted(true); 
     setShowPaymentModal(false);
+    navigate('/');
    
   };
 
@@ -248,7 +252,7 @@ export function CinemaRoom() {
       <div className={styles.roomHeader} >
         <Link to="/" className={styles.linkBack}>  <FaRegArrowAltCircleLeft size={30} />Voltar</Link>
         <h1>
-          {remainingTime}
+          
           <svg width="34" height="24" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M34.7143 9.1C35.0553 9.1 35.3823 8.96304 35.6234 8.71924C35.8645 8.47544 36 8.14478 36 7.8V2.6C36 1.91044 35.7291 1.24912 35.2468 0.761522C34.7646 0.273928 34.1106 0 33.4286 0H2.57143C1.88944 0 1.23539 0.273928 0.753154 0.761522C0.270917 1.24912 0 1.91044 0 2.6V7.8C0 8.14478 0.135459 8.47544 0.376577 8.71924C0.617695 8.96304 0.944722 9.1 1.28571 9.1C2.30869 9.1 3.28977 9.51089 4.01313 10.2423C4.73648 10.9737 5.14286 11.9657 5.14286 13C5.14286 14.0343 4.73648 15.0263 4.01313 15.7577C3.28977 16.4891 2.30869 16.9 1.28571 16.9C0.944722 16.9 0.617695 17.037 0.376577 17.2808C0.135459 17.5246 0 17.8552 0 18.2V23.4C0 24.0896 0.270917 24.7509 0.753154 25.2385C1.23539 25.7261 1.88944 26 2.57143 26H33.4286C34.1106 26 34.7646 25.7261 35.2468 25.2385C35.7291 24.7509 36 24.0896 36 23.4V18.2C36 17.8552 35.8645 17.5246 35.6234 17.2808C35.3823 17.037 35.0553 16.9 34.7143 16.9C33.6913 16.9 32.7102 16.4891 31.9869 15.7577C31.2635 15.0263 30.8571 14.0343 30.8571 13C30.8571 11.9657 31.2635 10.9737 31.9869 10.2423C32.7102 9.51089 33.6913 9.1 34.7143 9.1ZM2.57143 19.37C4.02466 19.0716 5.33118 18.2745 6.26963 17.1135C7.20807 15.9526 7.72073 14.4994 7.72073 13C7.72073 11.5006 7.20807 10.0474 6.26963 8.88646C5.33118 7.72555 4.02466 6.92837 2.57143 6.63V2.6H11.5714V23.4H2.57143V19.37ZM33.4286 19.37V23.4H14.1429V2.6H33.4286V6.63C31.9753 6.92837 30.6688 7.72555 29.7304 8.88646C28.7919 10.0474 28.2793 11.5006 28.2793 13C28.2793 14.4994 28.7919 15.9526 29.7304 17.1135C30.6688 18.2745 31.9753 19.0716 33.4286 19.37Z" fill="#F5B324"/>
           </svg>
