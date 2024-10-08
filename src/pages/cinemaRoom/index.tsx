@@ -111,8 +111,6 @@ export function CinemaRoom() {
         return;
       }
 
-      console.table(tickets)
-    
     if (selectedSeat && ticketType && selectedTime) {
         const price = ticketType === 'inteira' ? 22.5 : 11.25;
     
