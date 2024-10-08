@@ -19,15 +19,16 @@ interface PayProps {
   handleCancelPayment : () => void;
   time:number;
   totalToPay:number;
+  handlePaymentCompletion: () => void;
   
 }
 
-export function PaymentModal({ handleCancelPayment , tickets, time, totalToPay}: PayProps) {
-  const [remainingTimePayment, setRemainingTimePayment] = useState(time * 60); // 5 minutos em segundos
+export function PaymentModal({ handleCancelPayment , tickets, time, totalToPay, handlePaymentCompletion}: PayProps) {
+  const [remainingTimePayment, setRemainingTimePayment] = useState(time ); // 5 minutos em segundos
   
   useEffect(() => {
     if (remainingTimePayment <= 0) {
-       
+      handleCancelPayment ()
       return;
     }
 
@@ -109,7 +110,9 @@ export function PaymentModal({ handleCancelPayment , tickets, time, totalToPay}:
           <img className={styles.qrCodeImg} src="https://www.emoderationskills.com/wp-content/uploads/2010/08/QR1.jpg" alt="" />
         </div>
         
-        <button className={styles.btnCancelPayment} onClick={handleCancelPayment }>Cancelar</button>
+        <button className={styles.btnCancelPayment} onClick={handlePaymentCompletion}>Concluído</button>
+        <br></br>
+        <button className={styles.btnCancelPayment} onClick={handleCancelPayment}>Cancelar</button>
       </div>
     </div>
   );

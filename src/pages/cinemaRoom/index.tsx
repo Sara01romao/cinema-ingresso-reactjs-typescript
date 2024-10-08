@@ -23,8 +23,6 @@ export type Ticket = {
 };
 
 
-
-
 export function CinemaRoom() {
   const { id } = useParams<{ id: string }>(); 
   const movie = movies.find((m:Movie) => m.id === Number(id)); 
@@ -46,6 +44,8 @@ export function CinemaRoom() {
   const [totalToPay, setTotalToPay] = useState<number>(0);
   const [mobileCart, setMobileCart] = useState<boolean>(true);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
 
   const openMobileCar = () =>{
     console.log("Carrinho", mobileCart)
@@ -141,11 +141,12 @@ export function CinemaRoom() {
       );
 
       
-      setRemainingTime(0.15)
+      setRemainingTime(10);
       setErrorTicketType(false);
       handleCloseModal();
     }
   };
+
  
   const handleRemoveTicket = (seatId: string) => {
 
@@ -175,22 +176,23 @@ export function CinemaRoom() {
     return `${dayOfWeek}- ${shortDate}`;
   };
 
-
- 
-  const [remainingTime, setRemainingTime] = useState(0);
-
   const handleBuyTicket = (tickets:Ticket[]) =>{
 
     if(tickets.length !== 0){
       setShowPaymentModal(true);
     }
    
-    console.table(tickets.length)
-    console.log("finalizar")
-     setRemainingTime(5)
+    setRemainingTime(10)
   }
 
   const handleCancelPayment = () => {
+    handleExpiredSeats();
+    setTickets([]);
+    setShowPaymentModal(false);
+  };
+  
+
+  const handleExpiredSeats = () => {
     setSeats((prevSeats) =>
       prevSeats.map((seat) =>
         tickets.some((ticket) => ticket.seatId === seat.id)
@@ -199,12 +201,46 @@ export function CinemaRoom() {
       )
     );
   
-    setTickets([]);
-    setShowPaymentModal(false);
+    setTickets([]); 
   };
+
+  useEffect(() => {
+    if(paymentCompleted){
+      handleOccupiedSeats()
+      return
+    }
+
+    if (remainingTime <= 0) {
+      handleExpiredSeats()
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setRemainingTime((prevTime) => prevTime - 1); 
+    }, 1000); 
+
+    return () => clearInterval(interval); 
+  }, [remainingTime, paymentCompleted]);
   
 
+  const handlePaymentCompletion = () => {
+    setPaymentCompleted(true); 
+    setShowPaymentModal(false);
+   
+  };
 
+  const handleOccupiedSeats = () => {
+    setSeats((prevSeats) =>
+      prevSeats.map((seat) =>
+        tickets.some((ticket) => ticket.seatId === seat.id)
+          ? { ...seat, status: 'occupied' } 
+          : seat
+      )
+    );
+  
+    setTickets([]); 
+  };
+  
 
   return (
 
@@ -364,7 +400,13 @@ export function CinemaRoom() {
             )}
 
         {showPaymentModal &&(
-          <PaymentModal handleCancelPayment ={handleCancelPayment} tickets={tickets} time={remainingTime} totalToPay={totalToPay} />
+          <PaymentModal 
+            handleCancelPayment ={handleCancelPayment} 
+            tickets={tickets} 
+            time={remainingTime} 
+            totalToPay={totalToPay} 
+            handlePaymentCompletion={handlePaymentCompletion}
+          />
         )}
         
     
