@@ -4,20 +4,20 @@ import { Home } from "./pages/home";
 import { CinemaRoom } from "./pages/cinemaRoom";
 
 const router = createBrowserRouter([
-    {
-        element: <Layout/>,
-        children:[
-            {
-                path:'/',
-                element:<Home/>
-            },
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
 
-            {
-                path:'/cine-room/:id',
-                element:<CinemaRoom/>
-            }
-        ]
-    }
+      {
+        path: '/cine-room/:id',
+        element: <CinemaRoom />
+      }
+    ]
+  }
 ])
 
-export {router};
+export { router };

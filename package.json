@@ -28,5 +28,17 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
-  }
+  },
+  "description": "<h2 align=\"center\"> 💻 Sistema de Vendas de Ingresso de Cinema </h2>",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sara01romao/cinema-ingresso-reactjs-typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sara01romao/cinema-ingresso-reactjs-typescript/issues"
+  },
+  "homepage": "https://github.com/Sara01romao/cinema-ingresso-reactjs-typescript#readme"
 }
