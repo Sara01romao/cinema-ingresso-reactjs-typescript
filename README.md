@@ -1,13 +1,8 @@
 <h2 align="center"> 💻 Sistema de Vendas de Ingresso de Cinema </h2> 
 
 <p align="center">
-  
-
-  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/853e835c-cfc1-49bc-b0fc-a5128468dbf3">
-  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/14362e58-ba72-4050-8bf5-7cb39f826777">
-  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/0acaa67b-b91d-4e77-b952-77523495a0cf">
-
-
+  <img max-width="auto" height="auto" src="https://github.com/user-attachments/assets/319ee7b0-3d49-4340-84e7-7dfc1aed8f63">
+  <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/80b83476-9c53-43a1-ad91-5191de95e715">
 </p> 
 
 
