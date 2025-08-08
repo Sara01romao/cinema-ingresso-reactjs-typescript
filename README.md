@@ -1,9 +1,10 @@
 <h2 align="center"> 💻 Sistema de Vendas de Ingresso de Cinema </h2> 
 
 <p align="center">
-  <img max-width="auto" height="auto" src="https://github.com/user-attachments/assets/319ee7b0-3d49-4340-84e7-7dfc1aed8f63">
+  <img max-width="auto" height="auto" src="https://github.com/user-attachments/assets/16faf269-f936-420f-b6cf-9b38a6d6d0ad">
   <img max-width="auto" height="auto"  src="https://github.com/user-attachments/assets/80b83476-9c53-43a1-ad91-5191de95e715">
 </p> 
+
 
 
 
