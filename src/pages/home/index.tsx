@@ -27,7 +27,7 @@ export function Home() {
 
           <div className={styles.bannerContainer}>
             <div className={styles.bannerText}>
-              <p>Destasque</p>
+              <p>Destaque</p>
               <h1>{popularMovie.name}</h1>
               <Link to={`/cine-room/${popularMovie.id}`}>Comprar</Link>
             </div>
